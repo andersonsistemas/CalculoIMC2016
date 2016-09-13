@@ -19,7 +19,7 @@
 				  <div class="col-md-4">
 				  <div class="radio">
 				    <label for="radios-0">
-				      <input type="radio" name="radios" id="radios-0" value="0" checked="checked">
+				      <input type="radio" name="radios" id="radios-0" value="0">
 				      Masculino
 				    </label>
 					</div>
@@ -31,6 +31,15 @@
 					</div>
 				  </div>
 				</div>
+				<br>
+				
+		<!--  	
+			<select name="sex"> 
+   				<option value="0">Masculino
+			   	<option value="1">Feminino 
+			</select> 
+			
+			-->
 				
 				<!-- Text input-->
 				<div class="form-group">
@@ -54,8 +63,9 @@
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="button1id"></label>
 				  <div class="col-md-8">
-				    <button id="button1id" name="btnCalcular" class="btn btn-success">Calcular</button>
-				    <button id="button2id" name="btnLimpar" class="btn btn-info">Limpar</button>
+				  	<input type="submit" class="btn btn-success" value="Calcular"> </input>
+				  	<input type="reset" class="btn btn-info" value="Limpar"> </input>
+				    
 				  </div>
 				</div>
 				
@@ -69,6 +79,7 @@
 	String pesoStr = request.getParameter("peso");
 		alturaStr = (alturaStr == null ? "0" : alturaStr);
       	pesoStr = (pesoStr == null ? "0" : pesoStr);
+      	sexoStr = (sexoStr == null ? "3" : sexoStr);
       double altura = 0;
       double peso = 0;
       int sexo = 0;
@@ -82,35 +93,51 @@
       double imc = peso/(altura*altura);
       
       
-      if (altura == 0 || peso ==0){
-      %><div class="alert alert-danger" role="alert">Informe dados Válidos!</div><%}
-      if(sexo==0){  
-    	  double pesoIdeal=(altura*altura)*20.7;
-    	  if(imc<20.7){
-    %><div class="alert alert-warning" role="alert">Abaixo do Peso.</div><br><%}
-      else if(imc>=20.7&&imc<26.4){
-    %><div class="alert alert-sucess" role="alert">Peso Normal.</div><%}
-      else if(imc>=26.4&&imc<27.8)
-      {%><div class="alert alert-success" role="alert">Marginalmente acima do Peso.</div><%}
-      else if(imc>=27.8&&imc<31.1)
-      {%><div class="alert alert-warning" role="alert">Acima do peso Ideal.</div><%}
-      else if(imc>=31.1)
-      {%><div class="alert alert-danger" role="alert">Obeso.</div><%}
-      }
-      else{
-    	  double pesoIdeal=(altura*altura)*19.1;	
-    	  if(imc<19.1){
-    		    %><div class="alert alert-warning" role="alert">Abaixo do Peso.</div><%}
-    		      else if(imc>=19.1&&imc<25.8){
-    		    %><div class="alert alert-success" role="alert">Peso Normal.</div><%}
-    		      else if(imc>=25.8&&imc<27.3)
-    		      {%><div class="alert alert-success" role="alert">Marginalmente acima do Peso.</div><%}
-    		      else if(imc>=27.3&&imc<32.3)
-    		      {%><div class="alert alert-warning" role="alert">Acima do peso Ideal.</div><%}
-    		      else if(imc>=32.3)
-    		      {%><div class="alert alert-danger" role="alert">Obeso.</div><%}
-      	
-      }%>
+      switch (sexo)
+	      { 
+	      case 0: 
+	    	  if (altura == 0 || peso == 0)
+	 	     	{%><div class="alert alert-danger" role="alert">Informe dados Válidos!</div><%}
+	    	  else
+	    	  {
+	    	  	double pesoIdeal=(altura*altura)*20.7;
+		    	  if(imc<20.7)
+			    	  {%><div class="alert alert-warning" role="alert">Abaixo do Peso.</div><br><%}
+			      else if(imc>=20.7&&imc<26.4)
+			     	 {%><div class="alert alert-sucess" role="alert">Peso Normal.</div><%}
+			      else if(imc>=26.4&&imc<27.8)
+			      	{%><div class="alert alert-success" role="alert">Marginalmente acima do Peso.</div><%}
+			      else if(imc>=27.8&&imc<31.1)
+			       {%><div class="alert alert-warning" role="alert">Acima do peso Ideal.</div><%}
+			      else if(imc>=31.1)
+			        {%><div class="alert alert-danger" role="alert">Obeso.</div><%}
+	    	  }  
+		    	  break;
+	      	case 1:
+	      		if (altura == 0 || peso == 0)
+	 	     	{%><div class="alert alert-danger" role="alert">Informe dados Válidos!</div><%}
+	    	  	else 
+		    	  	{
+		      			double pesoIdeal=(altura*altura)*19.1;	
+			    	  	if(imc<19.1)
+			    	 		 {%><div class="alert alert-warning" role="alert">Abaixo do Peso.</div><%}
+			    		 else if(imc>=19.1&&imc<25.8)
+			    		 {%><div class="alert alert-success" role="alert">Peso Normal.</div><%}
+			    		    else if(imc>=25.8&&imc<27.3)
+			    		      	{%><div class="alert alert-success" role="alert">Marginalmente acima do Peso.</div><%}
+			    		      else if(imc>=27.3&&imc<32.3)
+			    		      		{%><div class="alert alert-warning" role="alert">Acima do peso Ideal.</div><%}
+			    		      else if(imc>=32.3)
+		    	  		     			 {%><div class="alert alert-danger" role="alert">Obeso.</div><%}
+		    	  	}
+		    	  	break;
+		    	  	
+	      	case 3:
+	  	  		%><div class="alert alert-danger" role="alert">Selecione Uma opção para prosseguir!</div><%
+		     if (altura == 0 || peso == 0)
+		     {%><div class="alert alert-danger" role="alert">Informe dados Válidos!</div><%}
+		     break;
+		    }%>
     
   </div>
 </body>
